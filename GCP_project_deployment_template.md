@@ -1,10 +1,10 @@
 ## Template for setting up a new deployable project at GCP (Flask at GAE)
 
 notes:
-•	'natality' is project name. replace it with a new name.
-•	editing html files is trivial. 
-•	if editing html and main.py seems easy, do evth in a Vertex Notebook and use Cloud Shell only for debugging
-•	this template developed based on this series of posts:
+-'natality' is project name. replace it with a new name.
+-editing html files is trivial. 
+-if editing html and main.py seems easy, do evth in a Vertex Notebook and use Cloud Shell only for debugging
+-this template developed based on this series of posts:
 https://medium.com/@nutanbhogendrasharma/deploy-machine-learning-model-in-google-cloud-platform-using-flask-part-3-20db0037bdf8
 
 
@@ -12,25 +12,27 @@ https://medium.com/@nutanbhogendrasharma/deploy-machine-learning-model-in-google
 ## General workflow:
 First, create a project folder like 'pg_natality' in project_repos folder. put there empty folder cloned frm GH. build a model there, name it like tit_model.ipynb. Put model artifact into /<project>-app/ folder.
     
+
     
 ## To make deployment, follow this guide:
 
-mkdir natality-app
-cd natality-app
-pip install virtualenv
-virtualenv natality-app-venv
-source natality-app-venv/bin/activate
-pip install Flask
-nano main.py
-#import Flask 
-from flask import Flask
-#create an instance of Flask
-app = Flask(__name__)
-@app.route('/')
-def home():
-    return "Hello World"
-if __name__ == '__main__':
-    app.run(debug=True)
+    mkdir natality-app
+    cd natality-app
+    pip install virtualenv
+    virtualenv natality-app-venv
+    source natality-app-venv/bin/activate
+    pip install Flask
+    nano main.py
+    
+    #import Flask 
+    from flask import Flask
+    #create an instance of Flask
+    app = Flask(__name__)
+    @app.route('/')
+    def home():
+        return "Hello World"
+    if __name__ == '__main__':
+        app.run(debug=True)
 
 python main.py
 mkdir templates
