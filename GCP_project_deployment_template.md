@@ -2,9 +2,9 @@
 
 #### notes:
 - 'natality' is project name. replace it with a new name.
-- editing html files is trivial. 
-- if editing html and main.py seems easy, do evth in a Vertex Notebook and use Cloud Shell only for debugging
-- this template developed based on this series of posts:
+- Modify main.py, home.html and predict.html to suit your current project. It should be easy to figure out what to modify as long as the model has few predictors.
+- For small projects, deployment according to this guide should take around 1 hour w/o accounting for editing those 3 files. This assumes you already have modeling notebook and evth goes smoothly. In any case, for simple projects it should not take more than 2 hours.
+- This template developed based on this series of posts:
 https://medium.com/@nutanbhogendrasharma/deploy-machine-learning-model-in-google-cloud-platform-using-flask-part-3-20db0037bdf8
 
 
@@ -232,6 +232,8 @@ terminal:
 
 
 Debugging notes:
+ - Can use Cloud Shell for debugging. So far this is the only way I know to run webapp interactively in GCP.
+ - When testing deployment you may need to wait for a few minutes if you see "Internal Server Error".
  - If app works locally, but not on GAE, make sure that requirements.txt contains all dependencies.
  - GAE console > services has logs for each service. this decreases need to ever use cloud shell.
  - F1 instance of gae may have inusfficient ram for some use cases. You can pick more powerful instance by editing app.yaml.
