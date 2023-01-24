@@ -1,24 +1,22 @@
 ## Template for setting up a new deployable project at GCP (Flask at GAE)
 
-notes:
--'natality' is project name. replace it with a new name.
--editing html files is trivial. 
--if editing html and main.py seems easy, do evth in a Vertex Notebook and use Cloud Shell only for debugging
--this template developed based on this series of posts:
+#### notes:
+- 'natality' is project name. replace it with a new name.
+- editing html files is trivial. 
+- if editing html and main.py seems easy, do evth in a Vertex Notebook and use Cloud Shell only for debugging
+- this template developed based on this series of posts:
 https://medium.com/@nutanbhogendrasharma/deploy-machine-learning-model-in-google-cloud-platform-using-flask-part-3-20db0037bdf8
 
 
 
 ## General workflow:
-First, create a project folder like 'pg_natality' in project_repos folder. put there empty folder cloned frm GH. build a model there, name it like tit_model.ipynb. Put model artifact into /<project>-app/ folder.
+First, create an empty GH repo named like 'pg_natality'. Then clone it to project_repos folder. Build a model there, name it like nat_model.ipynb. Put model artifact into /<project>-app/ folder.
     
-
     
 ## To make deployment, follow this guide:
 
 terminal:
     
-    mkdir natality-app
     cd natality-app
     pip install virtualenv
     virtualenv natality-app-venv
@@ -41,6 +39,11 @@ main.py:
 terminal:    
     
     python main.py
+    
+check whether it work in another terminal window via curl. Then interrupt serving.
+    
+terminal:
+    
     mkdir templates
     cd templates
     nano home.html
@@ -119,11 +122,18 @@ main.py:
     if __name__ == '__main__':
         app.run(debug=True)
         
-(to check http locally, can use lynx http://127.0.0.1:5000 -dump as an alternative to baseline curl)
-(notice that lynx pings dynamically, so you do not have to run it repeatedly)
+terminal:
+        
+    python main.py
+        
+To test http locally, can use lynx http://127.0.0.1:5000 -dump as an alternative to baseline curl. Lynx renders http well enough to figure out whether it works. Notice that lynx pings dynamically, so you do not have to run it repeatedly. Then stop serving.
+        
+terminal:        
         
     cd templates
     nano predict.html
+        
+predict.html:
         
     <!doctype html>
     <html>
@@ -144,18 +154,21 @@ main.py:
       </body>
     </html>
         
-(put the model in the root project folder)
+Make sure that the model artifact is in the root project folder.
+        
+terminal:
         
     pip install numpy
     pip install joblib
     pip install sklearn==0.0
     pip install xgboost
-
     pip install pandas
     pip install --upgrade google-cloud-storage
     pip install yfinance
 
     nano main.py
+        
+main.py:
                
     #import Flask 
     from flask import Flask, render_template, request
@@ -196,14 +209,20 @@ main.py:
         
 (run locally, make sure it works)
         
-[from project root] pip freeze > requirements.txt
+[in app folder] pip freeze > requirements.txt
         
 (you need 10-15 packages in requirements. remove some if there are too many)
+
+terminal:
         
     nano app.yaml
+      
+app.yaml:
         
     runtime: python38
-    service: "<project name>"
+    service: "<project-name>"
+     
+terminal:        
         
     gcloud init
     gcloud app deploy
@@ -213,9 +232,9 @@ main.py:
 
 
 Debugging notes:
-if app works locally, but not on gae, make sure that requirements.txt contains all dependencies.
-gae console > services has logs for each service. this decreases need to ever use cloud shell.
-f1 instance of gae may have inusfficient ram for some use cases.
-i can put my own files into gae app folder. this will work as long as their path is specified relative to that folder.
+ - If app works locally, but not on GAE, make sure that requirements.txt contains all dependencies.
+ - GAE console > services has logs for each service. this decreases need to ever use cloud shell.
+ - F1 instance of gae may have inusfficient ram for some use cases. You can pick more powerful instance by editing app.yaml.
+ - You can put my own files into gae app folder. This will work as long as their path is specified relative to that folder.
 
 
