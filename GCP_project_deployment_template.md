@@ -154,7 +154,7 @@ predict.html:
       </body>
     </html>
         
-Make sure that the model artifact is in the root project folder.
+Make sure that the model artifact is in the project app folder.
         
 terminal:
         
@@ -238,5 +238,7 @@ Debugging notes:
  - GAE console > services has logs for each service. this decreases need to ever use cloud shell.
  - F1 instance of gae may have inusfficient ram for some use cases. You can pick more powerful instance by editing app.yaml.
  - You can put my own files into gae app folder. This will work as long as their path is specified relative to that folder.
+ - If logs show that input was [None, None, ...] this likely means that you are using main.py from another project, i.e., it cn not read user input.
+        
 
 
