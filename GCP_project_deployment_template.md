@@ -10,7 +10,7 @@ https://medium.com/@nutanbhogendrasharma/deploy-machine-learning-model-in-google
 
 
 ## General workflow:
-First, create an empty GH repo named like 'pg_natality'. Then clone it to project_repos folder. Build a model there, name it like nat_model.ipynb. Put model artifact into /<project>-app/ folder. Then deploy it by building Flask app on GCP App Engine (GAE). The app need 3 .html files, config file and Python file with the core code. 
+First, create an empty GH repo named like 'pg_natality'. Then clone it to project_repos folder. Build a model there, name it like nat_model.ipynb. Put model artifact into /<project>-app/ folder. Then deploy it by building Flask app on GCP App Engine (GAE). The app need 3 .html files, config file, requirements file, and Python file with the core code. 
     
     
 ## To make deployment, follow this guide:
@@ -24,7 +24,7 @@ terminal:
     pip install Flask
     nano main.py
     
-main.py:    
+edit main.py:    
     
     #import Flask 
     from flask import Flask
@@ -48,7 +48,7 @@ terminal:
     cd templates
     nano home.html
     
-home.html:   
+edit home.html:   
     
     <!doctype html>
     <html>
@@ -104,13 +104,8 @@ home.html:
       </body>
     </html>
 
-        
-terminal:    
-        
-    cd ..
-    nano main.py
-        
-main.py:        
+          
+edit main.py:        
         
     #import Flask 
     from flask import Flask, render_template
@@ -133,7 +128,7 @@ terminal:
     cd templates
     nano predict.html
         
-predict.html:
+edit predict.html:
         
     <!doctype html>
     <html>
@@ -208,7 +203,8 @@ edit main.py:
         
 (run locally, make sure it works)
         
-[in app folder] pip freeze > requirements.txt
+[in app folder] 
+        pip freeze > requirements.txt
         
 (you need 10-15 packages in requirements. remove some if there are too many)
 
@@ -216,7 +212,7 @@ terminal:
         
     nano app.yaml
       
-app.yaml:
+edit app.yaml:
         
     runtime: python38
     service: "<project-name>"
@@ -227,6 +223,8 @@ terminal:
     gcloud app deploy
 
 
+Now the project should work. Go to the link showsn in a console after gcloud app deploy executes. 
+It should look like https://<app-name>-dot-<project-name>.uc.r.appspot.com
 
 
 
