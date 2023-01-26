@@ -1,6 +1,6 @@
 ## Template for setting up a new deployable project at GCP (Flask at GAE)
 
-#### notes:
+#### Notes:
 - 'natality' is project name. replace it with a new name.
 - Modify main.py, home.html and predict.html to suit your current project. It should be easy to figure out what to modify as long as the model has few predictors.
 - For small projects, deployment according to this guide should take around 1 hour w/o accounting for editing those 3 files. This assumes you already have modeling notebook and evth goes smoothly. In any case, for simple projects it should not take more than 2 hours.
@@ -10,7 +10,7 @@ https://medium.com/@nutanbhogendrasharma/deploy-machine-learning-model-in-google
 
 
 ## General workflow:
-First, create an empty GH repo named like 'pg_natality'. Then clone it to project_repos folder. Build a model there, name it like nat_model.ipynb. Put model artifact into /<project>-app/ folder.
+First, create an empty GH repo named like 'pg_natality'. Then clone it to project_repos folder. Build a model there, name it like nat_model.ipynb. Put model artifact into /<project>-app/ folder. Then deploy it by building Flask app on GCP App Engine (GAE). The app need 3 .html files, config file and Python file with the core code. 
     
     
 ## To make deployment, follow this guide:
@@ -165,12 +165,11 @@ terminal:
     pip install pandas
     pip install --upgrade google-cloud-storage
     pip install yfinance
-
-    nano main.py
         
-main.py:
+edit main.py:
                
-    #import Flask 
+    import numpy as np
+    import joblib, sklearn
     from flask import Flask, render_template, request
     #create an instance of Flask
     app = Flask(__name__)
